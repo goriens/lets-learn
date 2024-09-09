@@ -18,7 +18,7 @@ import { useState } from "react";
 import { ScoresTypes } from "@/types/scores";
 
 export default function GradeFrom() {
-  const [scores, setScores] = useState<ScoresTypes>({});
+  const [scores, setScores] = useState<ScoresTypes>();
   const form = useForm<z.infer<typeof defaultFromType>>({
     resolver: zodResolver(defaultFromType),
     defaultValues: {
@@ -106,7 +106,7 @@ export default function GradeFrom() {
           Check Score
         </Button>
       </form>
-      <GradeCard scores={scores} />
+      {scores && <GradeCard scores={scores} />}
     </Form>
   );
 }
