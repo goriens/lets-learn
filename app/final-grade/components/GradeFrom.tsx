@@ -12,12 +12,13 @@ import { Input } from "@/components/ui/input";
 import { defaultFromType } from "@/types/defaultFormType";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import GradeCard from "./GradeCard";
+import { z } from "zod";
 import { useState } from "react";
+import { ScoresTypes } from "@/types/scores";
 
 export default function GradeFrom() {
-  const [scores, setScores] = useState<object>({});
+  const [scores, setScores] = useState<ScoresTypes>({});
   const form = useForm<z.infer<typeof defaultFromType>>({
     resolver: zodResolver(defaultFromType),
     defaultValues: {
@@ -105,16 +106,7 @@ export default function GradeFrom() {
           Check Score
         </Button>
       </form>
-      {scores && (
-        <GradeCard
-          scores={{
-            gaa: 85,
-            quiz1: 90,
-            quiz2: 88,
-            finalQuiz: 95,
-          }}
-        />
-      )}
+      <GradeCard scores={scores} />
     </Form>
   );
 }
