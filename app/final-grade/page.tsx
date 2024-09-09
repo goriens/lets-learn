@@ -1,8 +1,21 @@
 import ChooseSubject from "./components/ChooseSubject";
 import GradeFrom from "./components/GradeFrom";
+export const getServerSideProps = async () => {
+  try {
+    const res = await fetch("/api/courses");
+    if (!res.ok) {
+      throw new Error("API se data fetch nahi ho raha");
+    }
+    const data = await res.json();
+    return { props: { data } };
+  } catch (error) {
+    console.error("Error:", error);
+    return { props: { data: [] } };
+  }
+};
 
 export default async function FinalGrade() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}api/courses`);
+  const res = await fetch(`api/courses`);
   const data = await res.json();
   return (
     <div className="container w-full pt-24 mb-10">
