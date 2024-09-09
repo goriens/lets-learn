@@ -13,25 +13,42 @@ import { defaultFromType } from "@/types/defaultFormType";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import GradeCard from "./GradeCard";
+import { useState } from "react";
 
 export default function GradeFrom() {
+  const [scores, setScores] = useState<object>({});
   const form = useForm<z.infer<typeof defaultFromType>>({
     resolver: zodResolver(defaultFromType),
     defaultValues: {
-      quiz1: 0,
-      quiz2: 0,
-      finalQuiz: 0,
-      bonus: 0,
+      // gaa: 0,
+      // quiz1: 0,
+      // quiz2: 0,
+      // finalQuiz: 0,
+      // bonus: 0,
     },
   });
 
   function onSubmit(values: z.infer<typeof defaultFromType>) {
-    console.log(values);
+    setScores(values);
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="gaa"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>GAA Score</FormLabel>
+              <FormControl>
+                <Input placeholder="55%" type="number" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="quiz1"
@@ -88,6 +105,7 @@ export default function GradeFrom() {
           Check Score
         </Button>
       </form>
+      {scores && <GradeCard scores={scores} />}
     </Form>
   );
 }

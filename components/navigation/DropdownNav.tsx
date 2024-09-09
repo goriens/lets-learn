@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,11 +14,13 @@ import Link from "next/link";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { IoLogIn } from "react-icons/io5";
 import { usePathname } from "next/navigation";
+import { Session } from "next-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-export function DropdownNav() {
+export function DropdownNav({ user }: Session) {
   const pathname = usePathname();
-  console.log(pathname);
-  const session = false;
+  if (!user) return null;
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -42,7 +45,7 @@ export function DropdownNav() {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            {!session ? (
+            {!user ? (
               <Button asChild className="flex gap-1 items-center">
                 <Link href="/auth/register">
                   <IoLogIn size={18} />
@@ -50,7 +53,13 @@ export function DropdownNav() {
                 </Link>
               </Button>
             ) : (
-              <p className="text-white">Profile</p>
+              <div className="flex items-center gap-4">
+                <Avatar>
+                  <AvatarImage src={user.image!} />
+                  <AvatarFallback>{user.name?.toString()[0]}</AvatarFallback>
+                </Avatar>
+                <p className="text-white font-semibold">{user.name}</p>
+              </div>
             )}
           </SheetClose>
         </SheetFooter>
