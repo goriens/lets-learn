@@ -2,7 +2,7 @@ import ChooseSubject from "./components/ChooseSubject";
 import GradeFrom from "./components/GradeFrom";
 
 export default async function FinalGrade() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/courses`);
+  const res = await fetch(`http://localhost:3000/api/courses`);
   const data = await res.json();
   return (
     <div className="container w-full pt-24 mb-10">
