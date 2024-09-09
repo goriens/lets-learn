@@ -9,7 +9,12 @@ import {
 import { ScoresTypes } from "@/types/scores";
 
 export default function GradeCard({ scores }: { scores: ScoresTypes }) {
-  const { gaa, quiz1, quiz2, finalQuiz, bonus } = scores;
+  const { gaa, quiz1, quiz2, finalQuiz, bonus } = scores || {
+    gaa: 0,
+    quiz1: 0,
+    quiz2: 0,
+    finalQuiz: 0,
+  };
   const totalScore = gaa * 0.1 + quiz1 * 0.2 + quiz2 * 0.3 + finalQuiz * 0.4;
 
   return (

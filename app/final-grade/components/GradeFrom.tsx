@@ -105,7 +105,16 @@ export default function GradeFrom() {
           Check Score
         </Button>
       </form>
-      {scores && <GradeCard scores={scores} />}
+      {scores && (
+        <GradeCard
+          scores={{
+            gaa: 85,
+            quiz1: 90,
+            quiz2: 88,
+            finalQuiz: 95,
+          }}
+        />
+      )}
     </Form>
   );
 }
