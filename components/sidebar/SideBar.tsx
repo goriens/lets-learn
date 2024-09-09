@@ -26,7 +26,7 @@ export default function SideBar() {
   const displayedLevel = levelCategory[level as keyof typeof levelCategory];
 
   return (
-    <div className="p-4">
+    <div className="md:p-4">
       <div className="mb-4">
         <Select onValueChange={handleCategoryChange}>
           <SelectTrigger className="font-semibold py-6">
@@ -42,16 +42,18 @@ export default function SideBar() {
           </SelectContent>
         </Select>
       </div>
-      {displayedLevel.map((course) => (
-        <Link key={course.id} href={`/study/notes/${course.id}`}>
-          <p className="border border-slate-600 p-4 my-1 rounded-sm cursor-pointer transition-all hover:bg-primary hover:text-secondary flex justify-between items-center">
-            {course.title}
-            <span>
-              <FaRegNewspaper size={15} />
-            </span>
-          </p>
-        </Link>
-      ))}
+      <div className="">
+        {displayedLevel.map((course) => (
+          <Link key={course.id} href={`/study/notes/${course.id}`}>
+            <p className="border border-slate-600 p-4 my-1 rounded-sm cursor-pointer transition-all hover:bg-primary hover:text-secondary flex justify-between items-center">
+              {course.title}
+              <span className="hidden md:block">
+                <FaRegNewspaper size={15} />
+              </span>
+            </p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
