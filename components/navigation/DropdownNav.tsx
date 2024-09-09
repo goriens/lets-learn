@@ -19,7 +19,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export function DropdownNav({ user }: Session) {
   const pathname = usePathname();
-  if (!user) return null;
 
   return (
     <Sheet>
